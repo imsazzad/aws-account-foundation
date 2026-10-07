@@ -1,12 +1,12 @@
 # A2 GitHub deployment IAM import plan
 
-Status: prepared and locally verified on 7 October 2026. This plan is not
-authorization to create a change set, import, deploy, delete, or modify AWS or
-GitHub resources.
+Status: completed and verified on 7 October 2026. This record does not
+authorize a future deployment, deletion, IAM change, or GitHub configuration
+change.
 
-## Proposed ownership
+## Imported ownership
 
-Import exactly two existing physical resources into the new
+Exactly two existing physical resources were imported into the
 `AccountFoundation` stack in account `954637862788`, region `eu-west-1`:
 
 | Logical ID | CloudFormation type | Import identifier |
@@ -55,10 +55,23 @@ replacement-sensitive properties and must not change during adoption.
   accepted direct pushes to `main` and the current environment configuration
   for this personal account. Reassess that boundary before adding collaborators,
   production workloads, or broader permissions.
-- The portfolio repository's documented branch subject and environment
-  protections do not match live state and need correction in that repository.
+- The portfolio repository's documented trust subject and environment state
+  were corrected after the import.
 
-## Required pre-import review
+## Execution record
+
+- Change set `a2-import-20261007` was reviewed before execution and contained
+  exactly the two intended `Import` actions with no update, replacement, or
+  deletion.
+- `AccountFoundation` reached `IMPORT_COMPLETE` at
+  `2026-10-07T21:22:31.966000+00:00` with termination protection enabled.
+- Drift detection `682e81b0-c295-11f1-83a2-0205504497d1` completed `IN_SYNC`
+  with zero drifted resources.
+- Portfolio deployment workflow run `37694036430` completed successfully from
+  `main` after the import, including AWS identity verification, CDK diff and
+  deployment, static publication, CloudFront invalidation, and artifact upload.
+
+## Completed pre-import review
 
 1. Start with a clean working tree and a reviewed commit containing only the A2
    import model and tests.
@@ -86,10 +99,10 @@ The resource mapping for an authorized import is:
 }
 ```
 
-Do not run the import command from this document without satisfying the gates
-above. The mapping must be passed to the pinned CDK CLI with lookups disabled.
+The mapping was passed to the pinned CDK CLI with lookups disabled after the
+gates above were satisfied and the owner explicitly authorized the import.
 
-## Post-import verification
+## Completed post-import verification
 
 1. Confirm both stack resources resolve to the original physical IDs and that
    no duplicate provider or role exists.

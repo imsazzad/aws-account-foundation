@@ -15,11 +15,11 @@ snapshot from 2 October 2026 and must be rechecked before changing AWS.
 ## Intended ownership
 
 This repository should own shared or administrative infrastructure for AWS
-account `954637862788`, beginning with the existing GitHub OIDC provider and
-the portfolio GitHub deployment role and policies. It may later own other
-explicitly approved account-level resources. It must not take ownership of any application stack,
-the Terraform state resources, or service-managed
-defaults simply because they appear in an account inventory.
+account `954637862788`. Its `AccountFoundation` stack owns the existing GitHub
+OIDC provider and portfolio GitHub deployment role and policies. It may later
+own other explicitly approved account-level resources. It must not take
+ownership of any application stack, the Terraform state resources, or
+service-managed defaults simply because they appear in an account inventory.
 
 The existing `CDKToolkit` stack is managed by the standard `cdk bootstrap`
 process. Keep its lifecycle documented here but do not define a second copy of
@@ -66,6 +66,7 @@ npm run synth
 
 Synthesis uses the explicit account `954637862788` and region `eu-west-1`. It
 does not use AWS credentials or live context lookups. The A2 template models
-the existing GitHub OIDC provider and portfolio deployment role, but those
-resources are not owned by the stack until an explicitly authorized import
-succeeds. See [A2_IMPORT_PLAN.md](docs/A2_IMPORT_PLAN.md) before any import.
+the GitHub OIDC provider and portfolio deployment role imported into
+`AccountFoundation` on 7 October 2026. See
+[A2_IMPORT_PLAN.md](docs/A2_IMPORT_PLAN.md) for the completed import record and
+rollback procedure.
