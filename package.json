@@ -1,0 +1,13 @@
+{
+  "name": "aws-account-foundation-cdk-cli",
+  "private": true,
+  "scripts": {
+    "synth": "cdk synth --quiet --strict"
+  },
+  "devDependencies": {
+    "aws-cdk": "2.1144.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

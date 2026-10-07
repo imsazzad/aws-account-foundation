@@ -2,4 +2,37 @@
 name = "aws-account-foundation"
 version = "0.1.0"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "aws-cdk-lib==2.272.0",
+    "constructs==10.8.1",
+]
+
+[dependency-groups]
+dev = [
+    "mypy==2.4.0",
+    "pytest==9.1.1",
+    "ruff==0.16.8",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+exclude = ["^cdk\\.out/", "^venv/", "^\\.venv/"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+exclude = ["cdk.out"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]

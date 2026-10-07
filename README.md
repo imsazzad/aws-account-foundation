@@ -5,8 +5,8 @@ describes my personal AWS account setup and keeps it distinct from any
 application infrastructure.
 
 The `docs/` folder contains `FINDINGS.md` and `IMPLEMENTATION_PLAN.md`, the
-initial inventory and work plan. The repository currently contains instructions
-and evidence, not a deployable CDK app.
+initial inventory and work plan. `PROJECT_STATE.md` records the latest verified
+state and decisions.
 
 Start with [FINDINGS.md](docs/FINDINGS.md), then follow
 [IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md). The observations are a
@@ -49,3 +49,22 @@ budget remain in `imsazzad/imsazzad.com`.
    protected environment are reviewed. The new repository needs its own
    deployment trust and role; the existing portfolio role must not be reused
    merely because it can deploy CDK. Never place long-lived AWS keys in CI.
+
+## Local verification
+
+Install the locked Python and Node dependencies, then run the same checks as CI:
+
+```shell
+uv sync --frozen --all-groups
+npm ci
+uv run --frozen ruff format --check .
+uv run --frozen ruff check .
+uv run --frozen mypy .
+uv run --frozen pytest
+npm run synth
+```
+
+Synthesis uses the explicit account `954637862788` and region `eu-west-1`. It
+does not use AWS credentials or live context lookups. The initial stack is
+intentionally empty; adding or adopting resources belongs to later,
+separately reviewed stages.

@@ -149,6 +149,8 @@ activemq-data/
 
 # Environments
 .env
+.env.*
+!.env.example
 .envrc
 .venv
 env/
@@ -156,6 +158,12 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# AWS CDK, AWS CLI, and Node tooling
+cdk.out/
+cdk.context.json
+.aws/
+node_modules/
 
 # Spyder project settings
 .spyderproject

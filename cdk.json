@@ -1,0 +1,4 @@
+{
+  "app": "./scripts/cdk-app.sh",
+  "versionReporting": false
+}
