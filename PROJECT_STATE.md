@@ -176,3 +176,29 @@ Read-only GitHub queries confirmed:
   region `eu-west-1`.
 - A real post-import portfolio deployment succeeded through the imported role,
   and the related stale portfolio documentation was corrected.
+
+## A3 read-only baseline
+
+The initial privilege-path audit was completed without changing IAM,
+`CDKToolkit`, credentials, MFA, or GitHub settings. The evidence and proposed
+migration boundary are in `docs/A3_PRIVILEGE_REVIEW.md`.
+
+- The GitHub role can assume the default CDK deployment role, which can operate
+  CloudFormation stacks on `*` and pass the bootstrap execution role.
+- The bootstrap execution role has AWS-managed `AdministratorAccess`; scoping
+  only the GitHub role's direct policy therefore does not provide effective
+  least privilege.
+- The file- and image-publishing roles are scoped to the bootstrap asset bucket
+  and ECR repository. The lookup role retains broad AWS-managed
+  `ReadOnlyAccess`, with `kms:Decrypt` explicitly denied.
+- User `sazzad` has no IAM MFA device, one active access key created on
+  10 September 2026, and effective administrator access through
+  `ControlledAdminAccess`.
+- `PortfolioCdkBootstrapOperator` remains on `AIEngineerAccess`. Removing it
+  alone would not remove effective administrator access while the controlled
+  administrator group remains attached.
+- The recommended design uses dedicated portfolio deployment and
+  CloudFormation execution roles while retaining the standard bootstrap asset
+  infrastructure. The alternative is a shared bootstrap execution-policy
+  replacement, which requires an explicit owner boundary decision after every
+  bootstrap consumer is inventoried.
