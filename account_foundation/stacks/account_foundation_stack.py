@@ -1,13 +1,13 @@
 from aws_cdk import Environment, Stack
 from constructs import Construct
 
+from account_foundation.constructs.portfolio_github_deployment_iam import (
+    PortfolioGitHubDeploymentIam,
+)
+
 
 class AccountFoundationStack(Stack):
-    """Owns explicitly approved account-level resources.
-
-    A1 intentionally defines no resources. Existing resources are added only
-    after their ownership and CloudFormation import path have been reviewed.
-    """
+    """Owns explicitly approved account-level resources."""
 
     def __init__(
         self,
@@ -25,3 +25,5 @@ class AccountFoundationStack(Stack):
             stack_name=stack_name,
             termination_protection=termination_protection,
         )
+
+        PortfolioGitHubDeploymentIam(self, "PortfolioGitHubDeploymentIam")

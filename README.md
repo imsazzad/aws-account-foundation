@@ -65,6 +65,7 @@ npm run synth
 ```
 
 Synthesis uses the explicit account `954637862788` and region `eu-west-1`. It
-does not use AWS credentials or live context lookups. The initial stack is
-intentionally empty; adding or adopting resources belongs to later,
-separately reviewed stages.
+does not use AWS credentials or live context lookups. The A2 template models
+the existing GitHub OIDC provider and portfolio deployment role, but those
+resources are not owned by the stack until an explicitly authorized import
+succeeds. See [A2_IMPORT_PLAN.md](docs/A2_IMPORT_PLAN.md) before any import.
